@@ -1241,6 +1241,9 @@ Parser::isCXXDeclarationSpecifier(Parser::TPResult BracedCastResult,
       case ANK_TentativeDecl:
         return TPResult::False;
       case ANK_TemplateName:
+        if (getLangOpts().CPlusPlus1z) {
+          return TPResult::False;
+        }
         // A bare type template-name which can't be a template template
         // argument is an error, and was probably intended to be a type.
         return GreaterThanIsOperator ? TPResult::True : TPResult::False;

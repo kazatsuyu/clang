@@ -325,4 +325,18 @@ namespace undefined_warnings {
     auto test2 = TemplDObj(.0f);
   }
 }
+
+// expected-no-diagnostics
+namespace type_conversion {
+  // Make sure we don't get an "expected unqualified-id" error for the explicit type conversion.
+  namespace {
+    template <typename T>
+    struct X {
+      X(T) {}
+    };
+    void f() {
+      X{0};
+    }
+  }
+}
 #endif
